@@ -1,0 +1,40 @@
+{
+  "name": "registersoftware",
+  "productName": "Harisree",
+  "version": "2.0.0",
+  "description": "An Electron desktop app for register logs",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dev": "nodemon --watch . --exec \"electron .\"",
+    "build": "electron-builder"
+  },
+  "build": {
+    "asar": true,
+    "appId": "com.example.myapp",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "main"
+    },
+    "icon": "./favicon.ico"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "node"
+  ],
+  "author": "Abhinav",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^28.1.3",
+    "electron-pdf-window": "^1.0.12",
+    "electronmon": "^2.0.2",
+    "fs": "^0.0.1-security",
+    "moment": "^2.29.4",
+    "mongoose": "^8.0.3",
+    "sqlite3": "^5.1.6"
+  }
+}
