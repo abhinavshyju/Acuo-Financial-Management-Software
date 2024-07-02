@@ -74,7 +74,7 @@ const ViewAdditionalLoan = () => {
       };
 
       await backendapi.send("payback_additional_loan", data);
-      toast.success("Additional loan payback successful.", {
+      toast.success("Additional loan payback was successful.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

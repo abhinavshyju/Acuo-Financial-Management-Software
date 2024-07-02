@@ -1,14 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../images/logo.png";
+import { ToastContainer, toast } from "react-toastify";
 
 const SideNav = () => {
+  const [Response, setResponse] = useState();
   const onBackUp = () => {
     const backendapi = window.BackendAPI;
     backendapi.send("backup");
+    window.BackendAPI.on("some-channel-response", (data) => {
+      console.log("Response from main process:", data);
+      setResponse(data);
+      if (data.message === "success") {
+        toast.success("Backup successfully completed.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("Backup error.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    });
   };
   return (
     <div className="shadow-lg">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <aside className="flex flex-col w-64 h-screen pl-2 pr-4 py-8 overflow-y-auto bg-white  border-r rtl:border-r-0 rtl:border-l  ">
         <Link to="/home" className=" flex ml-3 items-center ">
           <img className="w-auto h-6 sm:h-12" src={Logo} alt="" />
@@ -290,6 +331,37 @@ const SideNav = () => {
               <span className="mx-4 font-medium">Weekly record</span>
             </Link>
             <Link
+              to="/monthlyrecord"
+              className="flex items-center px-4 py-2 mt-3 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"
+              href="/home"
+            >
+              <svg
+                id="Diff_Files_24"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                // xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <rect
+                  width="24"
+                  height="24"
+                  stroke="none"
+                  fill="#000000"
+                  opacity="0"
+                />
+
+                <g transform="matrix(0.43 0 0 0.43 12 12)">
+                  <path
+                    transform=" translate(-25, -24.5)"
+                    d="M 25 1 C 24.449219 1 24 1.449219 24 2 C 24 2.550781 24.449219 3 25 3 C 25.550781 3 26 2.550781 26 2 C 26 1.449219 25.550781 1 25 1 Z M 7 3 L 7 47 L 22 47 L 22 45 L 9 45 L 9 5 L 22 5 L 22 3 Z M 28 3 L 28 5 L 41 5 L 41 45 L 28 45 L 28 47 L 43 47 L 43 3 Z M 25 4 C 24.449219 4 24 4.449219 24 5 C 24 5.550781 24.449219 6 25 6 C 25.550781 6 26 5.550781 26 5 C 26 4.449219 25.550781 4 25 4 Z M 25 7 C 24.449219 7 24 7.449219 24 8 C 24 8.550781 24.449219 9 25 9 C 25.550781 9 26 8.550781 26 8 C 26 7.449219 25.550781 7 25 7 Z M 25 10 C 24.449219 10 24 10.449219 24 11 C 24 11.550781 24.449219 12 25 12 C 25.550781 12 26 11.550781 26 11 C 26 10.449219 25.550781 10 25 10 Z M 14 12 L 14 14 L 22 14 L 22 12 Z M 28 12 L 28 14 L 36 14 L 36 12 Z M 25 13 C 24.449219 13 24 13.449219 24 14 C 24 14.550781 24.449219 15 25 15 C 25.550781 15 26 14.550781 26 14 C 26 13.449219 25.550781 13 25 13 Z M 25 16 C 24.449219 16 24 16.449219 24 17 C 24 17.550781 24.449219 18 25 18 C 25.550781 18 26 17.550781 26 17 C 26 16.449219 25.550781 16 25 16 Z M 14 17 L 14 19 L 22 19 L 22 17 Z M 28 17 L 28 19 L 36 19 L 36 17 Z M 25 19 C 24.449219 19 24 19.449219 24 20 C 24 20.550781 24.449219 21 25 21 C 25.550781 21 26 20.550781 26 20 C 26 19.449219 25.550781 19 25 19 Z M 14 22 L 14 24 L 22 24 L 22 22 Z M 25 22 C 24.449219 22 24 22.449219 24 23 C 24 23.550781 24.449219 24 25 24 C 25.550781 24 26 23.550781 26 23 C 26 22.449219 25.550781 22 25 22 Z M 28 22 L 28 24 L 36 24 L 36 22 Z M 25 25 C 24.449219 25 24 25.449219 24 26 C 24 26.550781 24.449219 27 25 27 C 25.550781 27 26 26.550781 26 26 C 26 25.449219 25.550781 25 25 25 Z M 14 27 L 14 29 L 22 29 L 22 27 Z M 28 27 L 28 29 L 36 29 L 36 27 Z M 25 28 C 24.449219 28 24 28.449219 24 29 C 24 29.550781 24.449219 30 25 30 C 25.550781 30 26 29.550781 26 29 C 26 28.449219 25.550781 28 25 28 Z M 25 31 C 24.449219 31 24 31.449219 24 32 C 24 32.550781 24.449219 33 25 33 C 25.550781 33 26 32.550781 26 32 C 26 31.449219 25.550781 31 25 31 Z M 28 32 L 28 34 L 36 34 L 36 32 Z M 25 34 C 24.449219 34 24 34.449219 24 35 C 24 35.550781 24.449219 36 25 36 C 25.550781 36 26 35.550781 26 35 C 26 34.449219 25.550781 34 25 34 Z M 25 37 C 24.449219 37 24 37.449219 24 38 C 24 38.550781 24.449219 39 25 39 C 25.550781 39 26 38.550781 26 38 C 26 37.449219 25.550781 37 25 37 Z M 28 37 L 28 39 L 36 39 L 36 37 Z M 25 40 C 24.449219 40 24 40.449219 24 41 C 24 41.550781 24.449219 42 25 42 C 25.550781 42 26 41.550781 26 41 C 26 40.449219 25.550781 40 25 40 Z M 25 43 C 24.449219 43 24 43.449219 24 44 C 24 44.550781 24.449219 45 25 45 C 25.550781 45 26 44.550781 26 44 C 26 43.449219 25.550781 43 25 43 Z M 25 46 C 24.449219 46 24 46.449219 24 47 C 24 47.550781 24.449219 48 25 48 C 25.550781 48 26 47.550781 26 47 C 26 46.449219 25.550781 46 25 46 Z"
+                    stroke-linecap="round"
+                  />
+                </g>
+              </svg>{" "}
+              <span className="mx-4 font-medium">Monthly record</span>
+            </Link>
+            <Link
               to="/addloan  "
               className="flex items-center px-4 py-2 mt-3 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"
             >
@@ -347,7 +419,7 @@ const SideNav = () => {
                   />
                 </g>
               </svg>
-              <span className="mx-4 font-medium">Fine payback</span>
+              <span className="mx-4 font-medium">Fine </span>
             </Link>
 
             <Link
@@ -364,6 +436,27 @@ const SideNav = () => {
               </svg>
 
               <span className="mx-4 font-medium">Expense & Income</span>
+            </Link>
+            <Link
+              to="/magalam"
+              className="flex items-center px-4 py-2 mt-3 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                width="20"
+                className="text-black"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3Zm9 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-6.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM11.5 6A.75.75 0 1 1 13 6a.75.75 0 0 1-1.5 0Z"
+                  clip-rule="evenodd"
+                />
+                <path d="M13 11.75a.75.75 0 0 0-1.5 0v.179c0 .15-.138.28-.306.255A65.277 65.277 0 0 0 1.75 11.5a.75.75 0 0 0 0 1.5c3.135 0 6.215.228 9.227.668A1.764 1.764 0 0 0 13 11.928v-.178Z" />
+              </svg>
+
+              <span className="mx-4 font-medium">Magalam</span>
             </Link>
           </nav>
           <div className="flex flex-col gap-3">

@@ -34,10 +34,10 @@ const FineIndividual = () => {
     ? userInfo.find((e) => e.name === name).fine
     : 0;
   console.log(PendingFine);
-  if (FetchData) {
-    FetchData.map((e) => {
-      if (e.username == name) {
-        if (e.fine !== 0) {
+  if (fetchFine) {
+    fetchFine.map((e) => {
+      if (e.name == name) {
+        if (e.amount !== 0) {
           sortData.push(e);
         }
       }
@@ -67,9 +67,9 @@ const FineIndividual = () => {
                 <p className="text-gray-600 mt-2 font-semibold">
                   Pending Fine Amount : {PendingFine}
                 </p>
-                <p className="text-gray-600 mt-2 font-semibold">
+                {/* <p className="text-gray-600 mt-2 font-semibold">
                   Total collected fine : {totalCollectedFine}
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="mt-12 shadow-sm border rounded-sm overflow-x-auto ">
@@ -95,7 +95,7 @@ const FineIndividual = () => {
                           </td>
 
                           <td className="px-6 py-4 whitespace-nowrap">
-                            {item.fine}
+                            {item.amount}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap font-bold uppercase">
                             {item.date}

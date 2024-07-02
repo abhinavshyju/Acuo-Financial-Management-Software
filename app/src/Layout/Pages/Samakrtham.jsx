@@ -66,7 +66,7 @@ const WeeklyRecord = () => {
   if (expense) {
     expense.map((e) => {
       if (e.date === CheckDate) {
-        if (e.type !== "income") {
+        if (e.type === "expense") {
           expenseArray.push(e);
           expenseTotal = expenseTotal + Number(e.ammount);
         } else {

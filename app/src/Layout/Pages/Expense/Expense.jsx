@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ExpenseNAv from "../../Components/NanoComponents/ExpenseandIncomeSubNAv";
 import Select from "react-select";
 import { BankInfo } from "../../MainFunctions";
+import { ToastContainer, toast } from "react-toastify";
 
 const Expense = () => {
   const backendapi = window.BackendAPI;
@@ -48,8 +49,20 @@ const Expense = () => {
       bank: bank,
     };
     // console.log(data)
-    if (name && AddExpense && bank != "") {
+    if (name && AddExpense && bank !== "") {
       backendapi.send("expense", data);
+      toast.success("Expense added successfully.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      Setname("");
+      SetAddExpense("");
     }
   };
   const expenses = [];
@@ -78,6 +91,18 @@ const Expense = () => {
     <>
       {expenses ? (
         <div className="mx-auto px-4 md:px-6 mt-10">
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <div className="flex mb-8">
             <h1 className="font-bold text-4xl">Expenses & Income</h1>
           </div>

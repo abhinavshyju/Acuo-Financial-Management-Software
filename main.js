@@ -59,8 +59,8 @@ ipcMain.on("print-to-pdf", (event, data) => {
     pathname: path.join(__dirname, "./printpage/build/index.html"),
   });
   mainWindow.loadURL(
-    "http://localhost:3001/"
-    // PrintUrl
+    // "http://localhost:3001/"
+    PrintUrl
   );
   // mainWindow.webContents.openDevTools();
   mainWindow.webContents.on("did-finish-load", () => {
@@ -104,7 +104,7 @@ ipcMain.on("LogData", async (event, data) => {
   UserData.forEach((e) => {
     db.run(
       `INSERT INTO RegisterLog(date, username, savings, loan, magalam, fine, interest, gave, attendence)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         e.date,
         e.username,
@@ -151,7 +151,7 @@ ipcMain.on("LogData", async (event, data) => {
 
       db.run(
         `UPDATE MemberInfo SET loan = loan - ? , totalsavings = totalsavings + ? ,pendingmagalam = pendingmagalam - ?,
-           pendingsavings = pendingsavings - ? + ? , fine = fine + ?, interest = interest + ?, date = ?   WHERE name = ? `,
+            pendingsavings = pendingsavings - ? + ? , fine = fine - ?, interest = interest + ?, date = ?   WHERE name = ? `,
         [
           e.loan,
           e.savings,
@@ -192,7 +192,7 @@ ipcMain.on("LogData", async (event, data) => {
 
   db.run(
     `INSERT INTO accounts(asset,loan,magalam ,fine ,interest ,date)
-            VALUES(?, ?,?,?,?,?)`,
+              VALUES(?, ?,?,?,?,?)`,
     [
       totalAssets,
       loanAmount,
@@ -215,7 +215,7 @@ ipcMain.on("LogData", async (event, data) => {
 ipcMain.on(`bankLog`, (event, data) => {
   db.run(
     ` INSERT INTO Log(date, name , ammount, bank,type)
-    VALUES(?,?,?,?,?)`,
+      VALUES(?,?,?,?,?)`,
     [
       data.date,
       `${data.name} deposit on ${
@@ -254,7 +254,7 @@ ipcMain.on("newMember", (event, data) => {
   metaPromise.then(async (meta) => {
     db.run(
       `INSERT INTO MemberInfo(name, phoneNumber, address, date ,pendingmagalam)
-          VALUES (?, ?, ?, ?,? )`,
+            VALUES (?, ?, ?, ?,? )`,
       [
         data.name,
         data.phone,
@@ -382,7 +382,7 @@ ipcMain.on("add-loan", async (event, data) => {
 
   db.run(
     ` INSERT INTO Log(date, name , ammount, bank,type)
-  VALUES(?,?,?,?,?)`,
+    VALUES(?,?,?,?,?)`,
     [
       Date,
       `${data.name} withdrew on ${
@@ -457,7 +457,7 @@ ipcMain.on("expense", async (e, data) => {
   );
   db.run(
     ` INSERT INTO Log(date, name , ammount, bank,type)
-    VALUES(?,?,?,?,?)`,
+      VALUES(?,?,?,?,?)`,
     [
       data.date,
       data.name,
@@ -554,8 +554,16 @@ ipcMain.on("editmetadata", (e, data) => {
     }
   );
 });
-ipcMain.on("backup", (e, data) => {
-  copyData();
+ipcMain.on("backup", async (event, data) => {
+  const callbackresponse = await copyData();
+  console.log(callbackresponse);
+  if (callbackresponse === 1) {
+    const response = { message: "success" };
+    event.reply("some-channel-response", response);
+  } else {
+    const response = { message: "failed" };
+    event.reply("some-channel-response", response);
+  }
 });
 
 //Additional Loan section
@@ -598,7 +606,7 @@ ipcMain.on("add_additional_loan", (e, data) => {
 
   db.run(
     ` INSERT INTO Log(date, name , ammount, bank,type)
-  VALUES(?,?,?,?,?)`,
+    VALUES(?,?,?,?,?)`,
     [
       Date,
       `${data.name} withdrew on ${
@@ -651,7 +659,7 @@ ipcMain.on("payback_additional_loan", (e, data) => {
 
   db.run(
     ` INSERT INTO Log(date, name , ammount, bank,type)
-  VALUES(?,?,?,?,?)`,
+    VALUES(?,?,?,?,?)`,
     [
       Date,
       `${data.name} deposit on ${
@@ -686,45 +694,13 @@ ipcMain.on("fine_payback", (e, data) => {
     }
   );
   db.run(
-    `UPDATE MemberInfo SET fine = fine - ? WHERE id = ? `,
+    `UPDATE MemberInfo SET fine = fine + ? WHERE id = ? `,
     [data.amount, data.id],
     (err) => {
       if (err) {
         console.error(err);
       } else {
         console.log("User profile updated ");
-      }
-    }
-  );
-  db.run(
-    ` UPDATE BankInfo SET balance = balance + ? WHERE bankname = ?`,
-    [data.amount, data.bank],
-    (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("Balance Added");
-      }
-    }
-  );
-
-  db.run(
-    ` INSERT INTO Log(date, name , ammount, bank,type)
-  VALUES(?,?,?,?,?)`,
-    [
-      Date,
-      `${data.name} deposit on ${
-        Date.slice(3, 5) + "/" + Date.slice(0, 2) + "/" + Date.slice(6, 10)
-      } as a fine payback`,
-      data.amount,
-      data.bank,
-      data.type === "deposit",
-    ],
-    (err) => {
-      if (err) {
-        console.error("Error inserting data into the database:", err.message);
-      } else {
-        console.log("Log added");
       }
     }
   );

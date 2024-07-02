@@ -142,7 +142,7 @@ export const Ledger = (startDate, endDate) => {
     );
     magalam = Sortmagalam.reduce((total, item) => total + item.magalam, 0);
     interest = Sortmagalam.reduce((total, e) => total + e.interest, 0);
-    fine = Sortfine.reduce((total, e) => total + e.amount, 0);
+    fine = SortAccounts.reduce((total, e) => total + e.fine, 0);
 
     SortIncomeAndExpense = incomeandexpense.filter(({ date }) => {
       const currentDate = new Date(date);
@@ -237,7 +237,7 @@ export const Ledger = (startDate, endDate) => {
     const preSortmagalam = accounts.filter(
       (date) => new Date(date.date) < new Date(startDate)
     );
-    const preSortfine = Finedata.filter(
+    const preSortfine = accounts.filter(
       (date) => new Date(date.date) < new Date(startDate)
     );
     const preSavings = PreSortAccounts.reduce(
@@ -267,7 +267,7 @@ export const Ledger = (startDate, endDate) => {
       (total, item) => total + item.magalam,
       0
     );
-    const prefine = preSortfine.reduce((total, item) => total + item.amount, 0);
+    const prefine = preSortfine.reduce((total, item) => total + item.fine, 0);
     const preinterest = preSortmagalam.reduce(
       (total, item) => total + item.interest,
       0

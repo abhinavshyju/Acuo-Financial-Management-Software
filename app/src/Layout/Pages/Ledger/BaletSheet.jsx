@@ -334,9 +334,7 @@ const BaletSheet = () => {
               </div>
               <div className="col-span-3 font-bold uppercase">Balance</div>
               <div className="col-span-2 text-right">
-                {balance
-                  ? Number(balance.toFixed(2))
-                  : result.balance.toFixed(2)}
+                {balance ? Number(balance) : result.balance}
               </div>
             </div>
             <div className="col-span-full grid grid-cols-4  bg-gray-50 border-b-2">

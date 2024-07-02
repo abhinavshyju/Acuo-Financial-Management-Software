@@ -32,7 +32,7 @@ const MainPage = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center">
-      <div className="">
+      <div className="flex flex-col items-center">
         <h1 className="font-black nato text-2xl">
           ഹരിശ്രീ സ്വയംസഹായ സംഘം,കാവുംവട്ടം
         </h1>
@@ -164,6 +164,37 @@ const MainPage = () => {
               <th className="px-2 py-1"> {data.total_income_side}</th>
               <th className="px-2 py-1">Total Right Side</th>
               <th className="px-2 py-1"> {data.total_expense_side || 0}</th>
+            </tr>
+            <tr>
+              <td></td>
+              <th className="px-2 py-1 text-left" colSpan={2}>
+                ASSET
+              </th>
+              <th className="px-2 py-1 text-left" colSpan={2}>
+                {" "}
+                {Number(data.loan_amount) +
+                  Number(data.Additionalloan) +
+                  Number(data.balance)}
+              </th>
+            </tr>
+            <tr>
+              <td></td>
+              <th className="px-2 py-1 text-left" colSpan={2}>
+                LIABILITY
+              </th>
+              <th className="px-2 py-1 text-left" colSpan={2}>
+                {" "}
+                {data.total_assets}
+              </th>
+            </tr>
+            <tr>
+              <td className="px-2 py-1 text-left text-sm" colSpan={5}>
+                #Defference if{" "}
+                {Number(data.loan_amount) +
+                  Number(data.Additionalloan) +
+                  Number(data.balance) -
+                  Number(data.total_assets)}
+              </td>
             </tr>
           </>
         ) : (

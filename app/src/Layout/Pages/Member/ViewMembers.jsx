@@ -13,6 +13,7 @@ const ViewMembers = () => {
       try {
         const data = await Data.MemberInfo();
         setInfo(data);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -30,7 +31,7 @@ const ViewMembers = () => {
   }
 
   return (
-    <div className="mx-auto px-4 md:px-6 mt-10">
+    <div className="mx-auto px-4 md:px-6 mt-10 pb-9">
       <div className="flex mb-8">
         <h1 className="font-bold text-4xl">Member</h1>
       </div>
@@ -89,7 +90,7 @@ const ViewMembers = () => {
                 <td className="px-6 py-4 whitespace-nowrap">{e.interest}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{e.loan || 0}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  {e.additionalloan || 0}
+                  {e.Additionalloan || 0}
                 </td>
                 <td className="text-right px-6 whitespace-nowrap">
                   <Link

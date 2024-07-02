@@ -35,6 +35,8 @@ import AddAddtionalLoan from "./Pages/AdditionalLoan/AddAdditionalLoan";
 import FineScreen from "./Pages/Fine/FineScreen";
 import FineIndividual from "./Pages/Fine/FineIndividual";
 import AdditionalLoanInduvidual from "./Pages/AdditionalLoan/AdditionalLoanIndividual";
+import Weeklymagalam from "./Pages/magalam/weeklymagalam";
+import Monthlyrecod from "./Pages/monthlyrecord/monthlyrecod";
 
 const DefaultLayout = () => {
   return (
@@ -47,13 +49,16 @@ const DefaultLayout = () => {
           {/* <MainNav/> */}
           <div className="bg-white">
             <Routes>
-              {/* <Route path="/" element={<Landingpage />} /> */}
-              <Route path="/" element={<BaletSheet />} />
+              <Route path="/" element={<Landingpage />} />
+              {/* <Route path="/" element={<BaletSheet />} /> */}
               <Route path="/home" element={<HomePage />} />
 
               <Route path="/bank" element={<BankTransactionview />} />
 
               <Route path="/expense" element={<Expense />} />
+
+              <Route path="/magalam" element={<Weeklymagalam />} />
+
               <Route path="/income" element={<Income />} />
               <Route path="/extraincome" element={<ExtraIncome />} />
 
@@ -89,6 +94,7 @@ const DefaultLayout = () => {
               <Route path="/members/edit/:id" element={<EditMember />} />
 
               <Route path="/weeklyrecord" element={<WeeklyRecord />} />
+              <Route path="/monthlyrecord" element={<Monthlyrecod />} />
 
               <Route path="/settings" element={<Settings />} />
 

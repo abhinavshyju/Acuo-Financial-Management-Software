@@ -207,8 +207,9 @@ contextBridge.exposeInMainWorld("FrontendAPI", {
 contextBridge.exposeInMainWorld("BackendAPI", {
   send: (channel, data) => ipcRenderer.send(channel, data),
   print: (channel) => ipcRenderer.send(channel),
-  on: (channel, func) =>
+  on: (channel, func) => {
     ipcRenderer.on(channel, (event, data) => {
-      // console.log(arg)
-    }),
+      func(data);
+    });
+  },
 });

@@ -75,7 +75,7 @@ const FineScreen = () => {
       };
 
       await backendapi.send("fine_payback", data);
-      toast.success("Fine payback successful.", {
+      toast.success("Fine added successful.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -95,7 +95,7 @@ const FineScreen = () => {
   return (
     <>
       {data && memberdata ? (
-        <div className="mx-auto px-4 md:px-6 mt-10">
+        <div className="mx-auto px-4 md:px-6 mt-10 pb-8">
           <ToastContainer
             position="top-center"
             autoClose={5000}
@@ -116,11 +116,10 @@ const FineScreen = () => {
           <div className="items-start justify-between mt-5 md:flex border-t-2 pt-7">
             <div className="max-w-lg">
               <h3 className="text-gray-800 text-xl font-bold sm:text-2xl">
-                Payback Fine
+                Fine alloction
               </h3>
               <p className="text-gray-600 mt-2">
-                Seamlessly input your fine amount for payback your existing
-                fine.
+                Seamlessly input your fine amount for allocating fines.
               </p>
             </div>
           </div>
