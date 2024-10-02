@@ -404,7 +404,8 @@ const RegisterAdd = () => {
                       userSavings[user.name],
                       userLoan[user.name],
                       userMagalam[user.name],
-                      userInterest[user.name]
+                      userInterest[user.name],
+                      userFine[user.name]
                     ) || 0)
                   );
                 }, 0)}

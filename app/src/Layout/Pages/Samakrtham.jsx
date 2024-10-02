@@ -188,6 +188,7 @@ const WeeklyRecord = () => {
                       0
                     ) +
                     nameSearch.reduce((total, e) => total + Number(e.loan), 0) +
+                    nameSearch.reduce((total, e) => total + Number(e.fine), 0) +
                     nameSearch.reduce(
                       (total, e) => total + Number(e.magalam),
                       0
@@ -307,6 +308,7 @@ const WeeklyRecord = () => {
                       0
                     ) +
                     nameSearch.reduce((total, e) => total + Number(e.loan), 0) +
+                    nameSearch.reduce((total, e) => total + Number(e.fine), 0) +
                     nameSearch.reduce(
                       (total, e) => total + Number(e.magalam),
                       0
@@ -338,6 +340,7 @@ const WeeklyRecord = () => {
                       0
                     ) +
                     nameSearch.reduce((total, e) => total + Number(e.loan), 0) +
+                    nameSearch.reduce((total, e) => total + Number(e.fine), 0) +
                     nameSearch.reduce(
                       (total, e) => total + Number(e.magalam),
                       0

@@ -46,7 +46,7 @@ ipcMain.on("print-to-pdf", (event, data) => {
       console.log("temp updated .");
     }
   });
-  mainWindow = new BrowserWindow({
+  const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -76,6 +76,135 @@ ipcMain.on("print-to-pdf", (event, data) => {
   });
 });
 
+
+ipcMain.on("print-to-pdf-2", (event, data) => {
+  console.log(data);
+  db.run(`UPDATE temp SET text = ? WHERE id = 1`, data, (err) => {
+    if (err) {
+      console.error("Error inserting data into the database:", err.message);
+    } else {
+      console.log("temp updated2 .");
+    }
+  });
+
+  const mainWindow2 = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  const PrintUrl = url.format({
+    pathname: path.join(__dirname, "./printpagetwo/build/index.html"),
+  });
+  mainWindow2.loadURL(
+    // "http://localhost:3001/"
+    PrintUrl
+  );
+  mainWindow2.webContents.openDevTools();
+
+
+  mainWindow2.webContents.on("did-finish-load", () => {
+    // Simulate Ctrl+P to trigger the print dialog
+    mainWindow2.webContents.print({}, (success, errorType) => {
+      if (!success) {
+        console.error(`Failed to print: ${errorType}`);
+      }
+
+      mainWindow2.close();
+      console.log("Triggerd");
+      // You can handle success or failure as needed
+    });
+  });
+});
+
+
+ipcMain.on("print-to-pdf-3", (event, data) => {
+  console.log(data);
+  db.run(`UPDATE temp SET text = ? WHERE id = 1`, data, (err) => {
+    if (err) {
+      console.error("Error inserting data into the database:", err.message);
+    } else {
+      console.log("temp updated3 .");
+    }
+  });
+
+  const mainWindow2 = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  const PrintUrl = url.format({
+    pathname: path.join(__dirname, "./printpagethree/build/index.html"),
+  });
+  mainWindow2.loadURL(
+    "http://localhost:3001/"
+    // PrintUrl
+  );
+  mainWindow2.webContents.openDevTools();
+
+
+  mainWindow2.webContents.on("did-finish-load", () => {
+    // Simulate Ctrl+P to trigger the print dialog
+    mainWindow2.webContents.print({}, (success, errorType) => {
+      if (!success) {
+        console.error(`Failed to print: ${errorType}`);
+      }
+
+      mainWindow2.close();
+      console.log("Triggerd");
+      // You can handle success or failure as needed
+    });
+  });
+});
+ipcMain.on("print-to-pdf-4", (event, data) => {
+  console.log(data);
+  db.run(`UPDATE temp SET text = ? WHERE id = 1`, data, (err) => {
+    if (err) {
+      console.error("Error inserting data into the database:", err.message);
+    } else {
+      console.log("temp updated3 .");
+    }
+  });
+
+  const mainWindow2 = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  const PrintUrl = url.format({
+    pathname: path.join(__dirname, "./printpagefour/build/index.html"),
+  });
+  mainWindow2.loadURL(
+    "http://localhost:3001/"
+    // PrintUrl
+  );
+  mainWindow2.webContents.openDevTools();
+
+
+  mainWindow2.webContents.on("did-finish-load", () => {
+    // Simulate Ctrl+P to trigger the print dialog
+    mainWindow2.webContents.print({}, (success, errorType) => {
+      if (!success) {
+        console.error(`Failed to print: ${errorType}`);
+      }
+
+      mainWindow2.close();
+      console.log("Triggerd");
+      // You can handle success or failure as needed
+    });
+  });
+});
 const getInfo = new Promise((resolve, reject) => {
   db.all("SELECT * FROM MemberInfo", (err, rows) => {
     if (err) {
@@ -218,12 +347,11 @@ ipcMain.on(`bankLog`, (event, data) => {
       VALUES(?,?,?,?,?)`,
     [
       data.date,
-      `${data.name} deposit on ${
-        data.date.slice(3, 5) +
-        "/" +
-        data.date.slice(0, 2) +
-        "/" +
-        data.date.slice(6, 10)
+      `${data.name} deposit on ${data.date.slice(3, 5) +
+      "/" +
+      data.date.slice(0, 2) +
+      "/" +
+      data.date.slice(6, 10)
       } as a savings`,
       data.ammount,
       data.bank,
@@ -385,8 +513,7 @@ ipcMain.on("add-loan", async (event, data) => {
     VALUES(?,?,?,?,?)`,
     [
       Date,
-      `${data.name} withdrew on ${
-        Date.slice(3, 5) + "/" + Date.slice(0, 2) + "/" + Date.slice(6, 10)
+      `${data.name} withdrew on ${Date.slice(3, 5) + "/" + Date.slice(0, 2) + "/" + Date.slice(6, 10)
       } as a loan`,
       data.loan,
       data.bank,
@@ -609,8 +736,7 @@ ipcMain.on("add_additional_loan", (e, data) => {
     VALUES(?,?,?,?,?)`,
     [
       Date,
-      `${data.name} withdrew on ${
-        Date.slice(3, 5) + "/" + Date.slice(0, 2) + "/" + Date.slice(6, 10)
+      `${data.name} withdrew on ${Date.slice(3, 5) + "/" + Date.slice(0, 2) + "/" + Date.slice(6, 10)
       } as a loan`,
       data.loan,
       data.bank,
@@ -662,8 +788,7 @@ ipcMain.on("payback_additional_loan", (e, data) => {
     VALUES(?,?,?,?,?)`,
     [
       Date,
-      `${data.name} deposit on ${
-        Date.slice(3, 5) + "/" + Date.slice(0, 2) + "/" + Date.slice(6, 10)
+      `${data.name} deposit on ${Date.slice(3, 5) + "/" + Date.slice(0, 2) + "/" + Date.slice(6, 10)
       } as a Additional loan payback`,
       data.amount,
       data.bank,

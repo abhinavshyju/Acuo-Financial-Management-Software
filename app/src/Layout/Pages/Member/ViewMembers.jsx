@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import MemberSubNAv from "../../Components/NanoComponents/MemberSubNAv";
 
 const ViewMembers = () => {
+  const apiCall = window.BackendAPI;
   const Data = window.FrontendAPI;
   const DataTo = window.BackendAPI;
 
@@ -46,6 +47,12 @@ const ViewMembers = () => {
           </p>
         </div>
         <div className="mt-3 md:mt-0">
+          <button
+            onClick={() => apiCall.send("print-to-pdf-3", JSON.stringify(Info))}
+            className="inline-block px-4 py-2 text-white duration-150 font-medium bg-green-600 rounded-sm hover:bg-green-500 active:bg-green-700 md:text-sm mr-3"
+          >
+            Print
+          </button>
           <Link
             to="/members/add"
             className="inline-block px-4 py-2 text-white duration-150 font-medium bg-indigo-600 rounded-sm hover:bg-indigo-500 active:bg-indigo-700 md:text-sm"
@@ -67,6 +74,7 @@ const ViewMembers = () => {
               <th className="py-3 px-6">Interest</th>
               <th className="py-3 px-6">Loan Amount</th>
               <th className="py-3 px-6">Additional Loan</th>
+              <th className="py-3 px-6"></th>
               <th className="py-3 px-6"></th>
             </tr>
           </thead>
@@ -93,6 +101,17 @@ const ViewMembers = () => {
                   {e.Additionalloan || 0}
                 </td>
                 <td className="text-right px-6 whitespace-nowrap">
+                  <button
+                    className="py-2 px-3 font-medium text-blue-400 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-sm"
+                    onClick={() =>
+                      apiCall.send(
+                        "print-to-pdf-2",
+                        JSON.stringify({ name: e.name })
+                      )
+                    }
+                  >
+                    Print
+                  </button>
                   <Link
                     to={`/members/savings/${e.name}/${e.id}`}
                     className="py-2 px-3 font-medium text-green-400 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-sm"

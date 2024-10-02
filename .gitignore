@@ -7,7 +7,17 @@
 
 /app/node_modules
 /printpage/node_modules
+/printpagethree/node_modules
+/printpagetwo/node_modules
+/printpagefour/node_modules
 
+/app/build
+/printpage/build
+/printpagethree/build
+/printpagetwo/build
+/printpagefour/build
+
+/main
 # testing
 /coverage
 

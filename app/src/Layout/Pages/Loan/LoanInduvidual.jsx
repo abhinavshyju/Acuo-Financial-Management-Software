@@ -84,23 +84,27 @@ const LoanInduvidual = () => {
                   {SortDateList.map((item, index) => {
                     test -= item.loan;
 
-                    return (
-                      <tr key={index}>
-                        <td className="px-6 py-4 whitespace-nowrap font-bold uppercase">
-                          {item.date}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {test + item.loan}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {test + item.loan}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {item.loan}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">{test}</td>
-                      </tr>
-                    );
+                    if (test >= 0) {
+                      return (
+                        <tr key={index}>
+                          <td className="px-6 py-4 whitespace-nowrap font-bold uppercase">
+                            {item.date}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {test + item.loan}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {test + item.loan}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {item.loan}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            {test}
+                          </td>
+                        </tr>
+                      );
+                    }
                   })}
                 </tbody>
               </table>

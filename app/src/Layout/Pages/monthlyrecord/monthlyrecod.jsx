@@ -6,6 +6,7 @@ const Monthlyrecod = () => {
   const [user, setUserData] = useState([]);
   const [sortDate, setSortDate] = useState(moment().format("YYYY-MM"));
   const [userdata, setuserdata] = useState();
+  const apiCall = window.BackendAPI;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,12 +55,25 @@ const Monthlyrecod = () => {
             Monthly record Activities view section
           </p>
         </div>
-        <input
-          type="month"
-          className="input input-bordered input-info date-in"
-          value={sortDate}
-          onChange={(e) => setSortDate(e.target.value)}
-        />
+        <div className="">
+          <button
+            onClick={() =>
+              apiCall.send(
+                "print-to-pdf-4",
+                JSON.stringify({ data_one: userdata, data_two: monthlyData })
+              )
+            }
+            className="inline-block px-6 py-2 text-white duration-150 font-medium bg-green-600 rounded-sm hover:bg-green-500 active:bg-green-700 md:text-sm mr-3"
+          >
+            Print
+          </button>
+          <input
+            type="month"
+            className="input input-bordered input-info date-in"
+            value={sortDate}
+            onChange={(e) => setSortDate(e.target.value)}
+          />
+        </div>
       </div>
       <div className="mt-12 shadow-sm border rounded-sm overflow-x-auto">
         <table className="w-full table-auto text-sm text-left bg-white">
